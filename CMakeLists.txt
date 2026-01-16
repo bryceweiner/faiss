@@ -74,11 +74,12 @@ if(APPLE)
     set(OpenMP_CXX_LIB_NAMES "omp")
   endif()
   if(NOT OpenMP_omp_LIBRARY)
-    if(EXISTS "/opt/homebrew/opt/libomp/lib/libomp.dylib")
-      set(OpenMP_omp_LIBRARY "/opt/homebrew/opt/libomp/lib/libomp.dylib")
-    elseif(EXISTS "/usr/local/opt/libomp/lib/libomp.dylib")
-      set(OpenMP_omp_LIBRARY "/usr/local/opt/libomp/lib/libomp.dylib")
-    endif()
+    find_library(
+      OpenMP_omp_LIBRARY
+      NAMES omp libomp
+      HINTS /opt/homebrew/opt/libomp /usr/local/opt/libomp
+      PATH_SUFFIXES lib
+    )
   endif()
 endif()
 
