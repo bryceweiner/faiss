@@ -8,8 +8,79 @@ from __future__ import print_function
 import os
 import platform
 import shutil
+import subprocess
+from pathlib import Path
 
 from setuptools import setup
+
+def _run_cmake_build():
+    repo_root = Path(__file__).resolve().parents[1]
+    build_dir = repo_root / "build-pip"
+    build_dir.mkdir(parents=True, exist_ok=True)
+
+    env = os.environ.copy()
+    if platform.system() == "Darwin" and platform.machine() == "arm64":
+        env.setdefault("FAISS_ENABLE_GPU", "ON")
+        env.setdefault("FAISS_ENABLE_MPS", "ON")
+        env.setdefault(
+            "OpenMP_C_FLAGS",
+            "-Xpreprocessor -fopenmp -I/opt/homebrew/opt/libomp/include",
+        )
+        env.setdefault(
+            "OpenMP_CXX_FLAGS",
+            "-Xpreprocessor -fopenmp -I/opt/homebrew/opt/libomp/include",
+        )
+        env.setdefault("OpenMP_C_LIB_NAMES", "omp")
+        env.setdefault("OpenMP_CXX_LIB_NAMES", "omp")
+        env.setdefault(
+            "OpenMP_omp_LIBRARY", "/opt/homebrew/opt/libomp/lib/libomp.dylib"
+        )
+
+    cmake_args = [
+        "cmake",
+        "-S",
+        str(repo_root),
+        "-B",
+        str(build_dir),
+        "-DFAISS_ENABLE_PYTHON=ON",
+        "-DBUILD_TESTING=OFF",
+    ]
+    if env.get("FAISS_ENABLE_GPU"):
+        cmake_args.append(f"-DFAISS_ENABLE_GPU={env['FAISS_ENABLE_GPU']}")
+    if env.get("FAISS_ENABLE_MPS"):
+        cmake_args.append(f"-DFAISS_ENABLE_MPS={env['FAISS_ENABLE_MPS']}")
+    if env.get("OpenMP_C_FLAGS"):
+        cmake_args.append(f"-DOpenMP_C_FLAGS={env['OpenMP_C_FLAGS']}")
+    if env.get("OpenMP_CXX_FLAGS"):
+        cmake_args.append(f"-DOpenMP_CXX_FLAGS={env['OpenMP_CXX_FLAGS']}")
+    if env.get("OpenMP_C_LIB_NAMES"):
+        cmake_args.append(f"-DOpenMP_C_LIB_NAMES={env['OpenMP_C_LIB_NAMES']}")
+    if env.get("OpenMP_CXX_LIB_NAMES"):
+        cmake_args.append(f"-DOpenMP_CXX_LIB_NAMES={env['OpenMP_CXX_LIB_NAMES']}")
+    if env.get("OpenMP_omp_LIBRARY"):
+        cmake_args.append(f"-DOpenMP_omp_LIBRARY={env['OpenMP_omp_LIBRARY']}")
+
+    subprocess.run(cmake_args, check=True, env=env)
+    subprocess.run(
+        ["cmake", "--build", str(build_dir), "--parallel"],
+        check=True,
+        env=env,
+    )
+
+
+def _candidate_lib_dirs():
+    repo_root = Path(__file__).resolve().parents[1]
+    build_dir = repo_root / "build-pip" / "faiss" / "python"
+    return [Path("."), build_dir]
+
+
+def _find_lib(name):
+    for base in _candidate_lib_dirs():
+        candidate = base / name
+        if candidate.exists():
+            return str(candidate)
+    return None
+
 
 # make the faiss python package dir
 shutil.rmtree("faiss", ignore_errors=True)
@@ -36,17 +107,48 @@ callbacks_lib = f"{prefix}libfaiss_python_callbacks{ext}"
 swigfaiss_sve_lib = f"{prefix}_swigfaiss_sve{ext}"
 faiss_example_external_module_lib = f"_faiss_example_external_module{ext}"
 
-found_swigfaiss_generic = os.path.exists(swigfaiss_generic_lib)
-found_swigfaiss_avx2 = os.path.exists(swigfaiss_avx2_lib)
-found_swigfaiss_avx512 = os.path.exists(swigfaiss_avx512_lib)
-found_swigfaiss_avx512_spr = os.path.exists(swigfaiss_avx512_spr_lib)
-found_callbacks = os.path.exists(callbacks_lib)
-found_swigfaiss_sve = os.path.exists(swigfaiss_sve_lib)
-found_faiss_example_external_module_lib = os.path.exists(
-    faiss_example_external_module_lib
-)
+swigfaiss_generic_path = _find_lib(swigfaiss_generic_lib)
+swigfaiss_avx2_path = _find_lib(swigfaiss_avx2_lib)
+swigfaiss_avx512_path = _find_lib(swigfaiss_avx512_lib)
+swigfaiss_avx512_spr_path = _find_lib(swigfaiss_avx512_spr_lib)
+callbacks_path = _find_lib(callbacks_lib)
+swigfaiss_sve_path = _find_lib(swigfaiss_sve_lib)
+faiss_example_external_module_path = _find_lib(faiss_example_external_module_lib)
+
+found_swigfaiss_generic = swigfaiss_generic_path is not None
+found_swigfaiss_avx2 = swigfaiss_avx2_path is not None
+found_swigfaiss_avx512 = swigfaiss_avx512_path is not None
+found_swigfaiss_avx512_spr = swigfaiss_avx512_spr_path is not None
+found_callbacks = callbacks_path is not None
+found_swigfaiss_sve = swigfaiss_sve_path is not None
+found_faiss_example_external_module_lib = faiss_example_external_module_path is not None
 
 if platform.system() != "AIX":
+    if not (
+        found_swigfaiss_generic
+        or found_swigfaiss_avx2
+        or found_swigfaiss_avx512
+        or found_swigfaiss_avx512_spr
+        or found_swigfaiss_sve
+        or found_faiss_example_external_module_lib
+    ):
+        _run_cmake_build()
+        swigfaiss_generic_path = _find_lib(swigfaiss_generic_lib)
+        swigfaiss_avx2_path = _find_lib(swigfaiss_avx2_lib)
+        swigfaiss_avx512_path = _find_lib(swigfaiss_avx512_lib)
+        swigfaiss_avx512_spr_path = _find_lib(swigfaiss_avx512_spr_lib)
+        callbacks_path = _find_lib(callbacks_lib)
+        swigfaiss_sve_path = _find_lib(swigfaiss_sve_lib)
+        faiss_example_external_module_path = _find_lib(faiss_example_external_module_lib)
+
+        found_swigfaiss_generic = swigfaiss_generic_path is not None
+        found_swigfaiss_avx2 = swigfaiss_avx2_path is not None
+        found_swigfaiss_avx512 = swigfaiss_avx512_path is not None
+        found_swigfaiss_avx512_spr = swigfaiss_avx512_spr_path is not None
+        found_callbacks = callbacks_path is not None
+        found_swigfaiss_sve = swigfaiss_sve_path is not None
+        found_faiss_example_external_module_lib = faiss_example_external_module_path is not None
+
     assert (
         found_swigfaiss_generic
         or found_swigfaiss_avx2
@@ -61,41 +163,41 @@ if platform.system() != "AIX":
     )
 
 if found_swigfaiss_generic:
-    print(f"Copying {swigfaiss_generic_lib}")
+    print(f"Copying {swigfaiss_generic_path}")
     shutil.copyfile("swigfaiss.py", "faiss/swigfaiss.py")
-    shutil.copyfile(swigfaiss_generic_lib, f"faiss/_swigfaiss{ext}")
+    shutil.copyfile(swigfaiss_generic_path, f"faiss/_swigfaiss{ext}")
 
 if found_swigfaiss_avx2:
-    print(f"Copying {swigfaiss_avx2_lib}")
+    print(f"Copying {swigfaiss_avx2_path}")
     shutil.copyfile("swigfaiss_avx2.py", "faiss/swigfaiss_avx2.py")
-    shutil.copyfile(swigfaiss_avx2_lib, f"faiss/_swigfaiss_avx2{ext}")
+    shutil.copyfile(swigfaiss_avx2_path, f"faiss/_swigfaiss_avx2{ext}")
 
 if found_swigfaiss_avx512:
-    print(f"Copying {swigfaiss_avx512_lib}")
+    print(f"Copying {swigfaiss_avx512_path}")
     shutil.copyfile("swigfaiss_avx512.py", "faiss/swigfaiss_avx512.py")
-    shutil.copyfile(swigfaiss_avx512_lib, f"faiss/_swigfaiss_avx512{ext}")
+    shutil.copyfile(swigfaiss_avx512_path, f"faiss/_swigfaiss_avx512{ext}")
 
 if found_swigfaiss_avx512_spr:
-    print(f"Copying {swigfaiss_avx512_spr_lib}")
+    print(f"Copying {swigfaiss_avx512_spr_path}")
     shutil.copyfile("swigfaiss_avx512_spr.py", "faiss/swigfaiss_avx512_spr.py")
-    shutil.copyfile(swigfaiss_avx512_spr_lib, f"faiss/_swigfaiss_avx512_spr{ext}")
+    shutil.copyfile(swigfaiss_avx512_spr_path, f"faiss/_swigfaiss_avx512_spr{ext}")
 
 if found_callbacks:
-    print(f"Copying {callbacks_lib}")
-    shutil.copyfile(callbacks_lib, f"faiss/{callbacks_lib}")
+    print(f"Copying {callbacks_path}")
+    shutil.copyfile(callbacks_path, f"faiss/{callbacks_lib}")
 
 if found_swigfaiss_sve:
-    print(f"Copying {swigfaiss_sve_lib}")
+    print(f"Copying {swigfaiss_sve_path}")
     shutil.copyfile("swigfaiss_sve.py", "faiss/swigfaiss_sve.py")
-    shutil.copyfile(swigfaiss_sve_lib, f"faiss/_swigfaiss_sve{ext}")
+    shutil.copyfile(swigfaiss_sve_path, f"faiss/_swigfaiss_sve{ext}")
 
 if found_faiss_example_external_module_lib:
-    print(f"Copying {faiss_example_external_module_lib}")
+    print(f"Copying {faiss_example_external_module_path}")
     shutil.copyfile(
         "faiss_example_external_module.py", "faiss/faiss_example_external_module.py"
     )
     shutil.copyfile(
-        faiss_example_external_module_lib,
+        faiss_example_external_module_path,
         f"faiss/_faiss_example_external_module{ext}",
     )
 

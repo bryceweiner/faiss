@@ -18,6 +18,26 @@ The GPU implementation can accept input from either CPU or GPU memory. On a serv
 
 Faiss comes with precompiled libraries for Anaconda in Python, see [faiss-cpu](https://anaconda.org/pytorch/faiss-cpu), [faiss-gpu](https://anaconda.org/pytorch/faiss-gpu) and [faiss-gpu-cuvs](https://anaconda.org/pytorch/faiss-gpu-cuvs). The library is mostly implemented in C++, the only dependency is a [BLAS](https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms) implementation. Optional GPU support is provided via CUDA or AMD ROCm, and the Python interface is also optional. The backend GPU implementations of NVIDIA [cuVS](https://github.com/rapidsai/cuvs) can also be enabled optionally. It compiles with cmake. See [INSTALL.md](INSTALL.md) for details.
 
+### Apple Silicon MPS (pip + GitHub)
+
+This fork supports Apple Silicon MPS. You can install directly from GitHub using a `requirements.txt` entry that triggers a one-shot build:
+
+```
+git+https://github.com/<your-org-or-user>/<faiss-fork>.git@<commit-or-branch>#subdirectory=faiss/python
+```
+
+Prerequisites (macOS arm64):
+
+```
+brew install cmake swig libomp
+```
+
+Then:
+
+```
+pip install -r requirements.txt
+```
+
 ## How Faiss works
 
 Faiss is built around an index type that stores a set of vectors, and provides a function to search in them with L2 and/or dot product vector comparison. Some index types are simple baselines, such as exact search. Most of the available indexing structures correspond to various trade-offs with respect to
