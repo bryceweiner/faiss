@@ -83,15 +83,23 @@ def _find_lib(name):
 
 
 # make the faiss python package dir
-shutil.rmtree("faiss", ignore_errors=True)
-os.mkdir("faiss")
-shutil.copytree("contrib", "faiss/contrib")
-shutil.copyfile("__init__.py", "faiss/__init__.py")
-shutil.copyfile("loader.py", "faiss/loader.py")
-shutil.copyfile("class_wrappers.py", "faiss/class_wrappers.py")
-shutil.copyfile("gpu_wrappers.py", "faiss/gpu_wrappers.py")
-shutil.copyfile("extra_wrappers.py", "faiss/extra_wrappers.py")
-shutil.copyfile("array_conversions.py", "faiss/array_conversions.py")
+root_dir = Path(__file__).resolve().parent
+repo_root = root_dir.parent
+shutil.rmtree(root_dir / "faiss", ignore_errors=True)
+os.mkdir(root_dir / "faiss")
+shutil.copytree(repo_root / "contrib", root_dir / "faiss" / "contrib")
+shutil.copyfile(root_dir / "__init__.py", root_dir / "faiss" / "__init__.py")
+shutil.copyfile(root_dir / "loader.py", root_dir / "faiss" / "loader.py")
+shutil.copyfile(
+    root_dir / "class_wrappers.py", root_dir / "faiss" / "class_wrappers.py"
+)
+shutil.copyfile(root_dir / "gpu_wrappers.py", root_dir / "faiss" / "gpu_wrappers.py")
+shutil.copyfile(
+    root_dir / "extra_wrappers.py", root_dir / "faiss" / "extra_wrappers.py"
+)
+shutil.copyfile(
+    root_dir / "array_conversions.py", root_dir / "faiss" / "array_conversions.py"
+)
 
 if platform.system() != "AIX":
     ext = ".pyd" if platform.system() == "Windows" else ".so"
