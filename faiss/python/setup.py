@@ -125,9 +125,10 @@ def _run_cmake_build():
 
 
 def _candidate_lib_dirs():
-    repo_root = Path(__file__).resolve().parents[1]
+    root_dir = Path(__file__).resolve().parent
+    repo_root = _resolve_repo_root()
     build_dir = repo_root / "build-pip" / "faiss" / "python"
-    return [Path("."), build_dir]
+    return [root_dir, build_dir]
 
 
 def _find_lib(name):
@@ -228,41 +229,63 @@ if platform.system() != "AIX":
 
 if found_swigfaiss_generic:
     print(f"Copying {swigfaiss_generic_path}")
-    shutil.copyfile("swigfaiss.py", "faiss/swigfaiss.py")
-    shutil.copyfile(swigfaiss_generic_path, f"faiss/_swigfaiss{ext}")
+    shutil.copyfile(root_dir / "swigfaiss.py", root_dir / "faiss" / "swigfaiss.py")
+    shutil.copyfile(
+        swigfaiss_generic_path, root_dir / "faiss" / f"_swigfaiss{ext}"
+    )
 
 if found_swigfaiss_avx2:
     print(f"Copying {swigfaiss_avx2_path}")
-    shutil.copyfile("swigfaiss_avx2.py", "faiss/swigfaiss_avx2.py")
-    shutil.copyfile(swigfaiss_avx2_path, f"faiss/_swigfaiss_avx2{ext}")
+    shutil.copyfile(
+        root_dir / "swigfaiss_avx2.py",
+        root_dir / "faiss" / "swigfaiss_avx2.py",
+    )
+    shutil.copyfile(
+        swigfaiss_avx2_path, root_dir / "faiss" / f"_swigfaiss_avx2{ext}"
+    )
 
 if found_swigfaiss_avx512:
     print(f"Copying {swigfaiss_avx512_path}")
-    shutil.copyfile("swigfaiss_avx512.py", "faiss/swigfaiss_avx512.py")
-    shutil.copyfile(swigfaiss_avx512_path, f"faiss/_swigfaiss_avx512{ext}")
+    shutil.copyfile(
+        root_dir / "swigfaiss_avx512.py",
+        root_dir / "faiss" / "swigfaiss_avx512.py",
+    )
+    shutil.copyfile(
+        swigfaiss_avx512_path, root_dir / "faiss" / f"_swigfaiss_avx512{ext}"
+    )
 
 if found_swigfaiss_avx512_spr:
     print(f"Copying {swigfaiss_avx512_spr_path}")
-    shutil.copyfile("swigfaiss_avx512_spr.py", "faiss/swigfaiss_avx512_spr.py")
-    shutil.copyfile(swigfaiss_avx512_spr_path, f"faiss/_swigfaiss_avx512_spr{ext}")
+    shutil.copyfile(
+        root_dir / "swigfaiss_avx512_spr.py",
+        root_dir / "faiss" / "swigfaiss_avx512_spr.py",
+    )
+    shutil.copyfile(
+        swigfaiss_avx512_spr_path,
+        root_dir / "faiss" / f"_swigfaiss_avx512_spr{ext}",
+    )
 
 if found_callbacks:
     print(f"Copying {callbacks_path}")
-    shutil.copyfile(callbacks_path, f"faiss/{callbacks_lib}")
+    shutil.copyfile(callbacks_path, root_dir / "faiss" / callbacks_lib)
 
 if found_swigfaiss_sve:
     print(f"Copying {swigfaiss_sve_path}")
-    shutil.copyfile("swigfaiss_sve.py", "faiss/swigfaiss_sve.py")
-    shutil.copyfile(swigfaiss_sve_path, f"faiss/_swigfaiss_sve{ext}")
+    shutil.copyfile(
+        root_dir / "swigfaiss_sve.py",
+        root_dir / "faiss" / "swigfaiss_sve.py",
+    )
+    shutil.copyfile(swigfaiss_sve_path, root_dir / "faiss" / f"_swigfaiss_sve{ext}")
 
 if found_faiss_example_external_module_lib:
     print(f"Copying {faiss_example_external_module_path}")
     shutil.copyfile(
-        "faiss_example_external_module.py", "faiss/faiss_example_external_module.py"
+        root_dir / "faiss_example_external_module.py",
+        root_dir / "faiss" / "faiss_example_external_module.py",
     )
     shutil.copyfile(
         faiss_example_external_module_path,
-        f"faiss/_faiss_example_external_module{ext}",
+        root_dir / "faiss" / f"_faiss_example_external_module{ext}",
     )
 
 long_description = """
