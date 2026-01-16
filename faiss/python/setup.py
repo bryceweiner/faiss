@@ -13,8 +13,38 @@ from pathlib import Path
 
 from setuptools import setup
 
+def _resolve_repo_root():
+    root_dir = Path(__file__).resolve().parent
+    for candidate in root_dir.parents:
+        if (candidate / "contrib").exists():
+            return candidate
+    return root_dir.parents[1]
+
+
+def _ensure_contrib(repo_root: Path, root_dir: Path) -> Path:
+    contrib_path = repo_root / "contrib"
+    if contrib_path.exists():
+        return contrib_path
+    try:
+        top = subprocess.check_output(
+            ["git", "-C", str(root_dir), "rev-parse", "--show-toplevel"],
+            text=True,
+        ).strip()
+        top_path = Path(top)
+        subprocess.run(
+            ["git", "-C", str(top_path), "checkout", "HEAD", "--", "contrib"],
+            check=False,
+        )
+        contrib_path = top_path / "contrib"
+        if contrib_path.exists():
+            return contrib_path
+    except Exception:
+        pass
+    raise FileNotFoundError("Could not locate 'contrib' directory for packaging.")
+
+
 def _run_cmake_build():
-    repo_root = Path(__file__).resolve().parents[1]
+    repo_root = _resolve_repo_root()
     build_dir = repo_root / "build-pip"
     build_dir.mkdir(parents=True, exist_ok=True)
 
@@ -82,12 +112,12 @@ def _find_lib(name):
     return None
 
 
-# make the faiss python package dir
 root_dir = Path(__file__).resolve().parent
-repo_root = root_dir.parent
+repo_root = _resolve_repo_root()
+contrib_src = _ensure_contrib(repo_root, root_dir)
 shutil.rmtree(root_dir / "faiss", ignore_errors=True)
 os.mkdir(root_dir / "faiss")
-shutil.copytree(repo_root / "contrib", root_dir / "faiss" / "contrib")
+shutil.copytree(contrib_src, root_dir / "faiss" / "contrib")
 shutil.copyfile(root_dir / "__init__.py", root_dir / "faiss" / "__init__.py")
 shutil.copyfile(root_dir / "loader.py", root_dir / "faiss" / "loader.py")
 shutil.copyfile(
