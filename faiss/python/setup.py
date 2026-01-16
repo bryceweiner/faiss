@@ -139,15 +139,28 @@ def _find_lib(name):
     return None
 
 
-def _find_python_source(name):
+def _find_python_source(name, preferred_dir=None):
     root_dir = Path(__file__).resolve().parent
     repo_root = _resolve_repo_root()
     build_dir = repo_root / "build-pip" / "faiss" / "python"
-    for base in (build_dir, root_dir):
+    search_dirs = []
+    if preferred_dir is not None:
+        search_dirs.append(Path(preferred_dir))
+    search_dirs.extend([build_dir, root_dir])
+    for base in search_dirs:
         candidate = base / name
         if candidate.exists():
             return candidate
     return None
+
+
+def _find_python_source_for_lib(lib_path, name):
+    if lib_path:
+        lib_dir = Path(lib_path).resolve().parent
+        candidate = _find_python_source(name, preferred_dir=lib_dir)
+        if candidate:
+            return candidate
+    return _find_python_source(name)
 
 
 root_dir = Path(__file__).resolve().parent
@@ -240,7 +253,9 @@ if platform.system() != "AIX":
 
 if found_swigfaiss_generic:
     print(f"Copying {swigfaiss_generic_path}")
-    swigfaiss_py = _find_python_source("swigfaiss.py")
+    swigfaiss_py = _find_python_source_for_lib(
+        swigfaiss_generic_path, "swigfaiss.py"
+    )
     if not swigfaiss_py:
         raise FileNotFoundError("Could not locate swigfaiss.py after build.")
     shutil.copyfile(swigfaiss_py, root_dir / "faiss" / "swigfaiss.py")
@@ -250,7 +265,9 @@ if found_swigfaiss_generic:
 
 if found_swigfaiss_avx2:
     print(f"Copying {swigfaiss_avx2_path}")
-    swigfaiss_avx2_py = _find_python_source("swigfaiss_avx2.py")
+    swigfaiss_avx2_py = _find_python_source_for_lib(
+        swigfaiss_avx2_path, "swigfaiss_avx2.py"
+    )
     if not swigfaiss_avx2_py:
         raise FileNotFoundError("Could not locate swigfaiss_avx2.py after build.")
     shutil.copyfile(swigfaiss_avx2_py, root_dir / "faiss" / "swigfaiss_avx2.py")
@@ -260,7 +277,9 @@ if found_swigfaiss_avx2:
 
 if found_swigfaiss_avx512:
     print(f"Copying {swigfaiss_avx512_path}")
-    swigfaiss_avx512_py = _find_python_source("swigfaiss_avx512.py")
+    swigfaiss_avx512_py = _find_python_source_for_lib(
+        swigfaiss_avx512_path, "swigfaiss_avx512.py"
+    )
     if not swigfaiss_avx512_py:
         raise FileNotFoundError("Could not locate swigfaiss_avx512.py after build.")
     shutil.copyfile(swigfaiss_avx512_py, root_dir / "faiss" / "swigfaiss_avx512.py")
@@ -270,7 +289,9 @@ if found_swigfaiss_avx512:
 
 if found_swigfaiss_avx512_spr:
     print(f"Copying {swigfaiss_avx512_spr_path}")
-    swigfaiss_avx512_spr_py = _find_python_source("swigfaiss_avx512_spr.py")
+    swigfaiss_avx512_spr_py = _find_python_source_for_lib(
+        swigfaiss_avx512_spr_path, "swigfaiss_avx512_spr.py"
+    )
     if not swigfaiss_avx512_spr_py:
         raise FileNotFoundError(
             "Could not locate swigfaiss_avx512_spr.py after build."
@@ -290,7 +311,9 @@ if found_callbacks:
 
 if found_swigfaiss_sve:
     print(f"Copying {swigfaiss_sve_path}")
-    swigfaiss_sve_py = _find_python_source("swigfaiss_sve.py")
+    swigfaiss_sve_py = _find_python_source_for_lib(
+        swigfaiss_sve_path, "swigfaiss_sve.py"
+    )
     if not swigfaiss_sve_py:
         raise FileNotFoundError("Could not locate swigfaiss_sve.py after build.")
     shutil.copyfile(
@@ -301,7 +324,9 @@ if found_swigfaiss_sve:
 
 if found_faiss_example_external_module_lib:
     print(f"Copying {faiss_example_external_module_path}")
-    example_py = _find_python_source("faiss_example_external_module.py")
+    example_py = _find_python_source_for_lib(
+        faiss_example_external_module_path, "faiss_example_external_module.py"
+    )
     if not example_py:
         raise FileNotFoundError(
             "Could not locate faiss_example_external_module.py after build."
