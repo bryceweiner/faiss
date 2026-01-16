@@ -157,6 +157,14 @@ class GpuIndexIVFPQ : public GpuIndexIVF {
     void trainResidualQuantizer_(idx_t n, const float* x);
 
    protected:
+    void searchImpl_(
+            idx_t n,
+            const float* x,
+            int k,
+            float* distances,
+            idx_t* labels,
+            const SearchParameters* params) const override;
+
     /// Our configuration options that we were initialized with
     const GpuIndexIVFPQConfig ivfpqConfig_;
 

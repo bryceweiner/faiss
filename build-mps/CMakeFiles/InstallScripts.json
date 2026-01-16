@@ -1,0 +1,19 @@
+{
+	"InstallScripts" : 
+	[
+		"/Users/bryce/Documents/GitHub/faiss/build-mps/cmake_install.cmake",
+		"/Users/bryce/Documents/GitHub/faiss/build-mps/faiss/cmake_install.cmake",
+		"/Users/bryce/Documents/GitHub/faiss/build-mps/faiss/gpu/cmake_install.cmake",
+		"/Users/bryce/Documents/GitHub/faiss/build-mps/demos/cmake_install.cmake",
+		"/Users/bryce/Documents/GitHub/faiss/build-mps/benchs/cmake_install.cmake",
+		"/Users/bryce/Documents/GitHub/faiss/build-mps/tutorial/cpp/cmake_install.cmake",
+		"/Users/bryce/Documents/GitHub/faiss/build-mps/tests/cmake_install.cmake",
+		"/Users/bryce/Documents/GitHub/faiss/build-mps/_deps/googletest-build/cmake_install.cmake",
+		"/Users/bryce/Documents/GitHub/faiss/build-mps/_deps/googletest-build/googletest/cmake_install.cmake",
+		"/Users/bryce/Documents/GitHub/faiss/build-mps/perf_tests/cmake_install.cmake",
+		"/Users/bryce/Documents/GitHub/faiss/build-mps/_deps/googlebenchmark-build/cmake_install.cmake",
+		"/Users/bryce/Documents/GitHub/faiss/build-mps/_deps/googlebenchmark-build/src/cmake_install.cmake",
+		"/Users/bryce/Documents/GitHub/faiss/build-mps/faiss/gpu/test/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

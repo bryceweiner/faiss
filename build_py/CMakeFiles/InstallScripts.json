@@ -1,0 +1,13 @@
+{
+	"InstallScripts" : 
+	[
+		"/Users/bryce/Documents/GitHub/faiss/build_py/cmake_install.cmake",
+		"/Users/bryce/Documents/GitHub/faiss/build_py/faiss/cmake_install.cmake",
+		"/Users/bryce/Documents/GitHub/faiss/build_py/faiss/gpu/cmake_install.cmake",
+		"/Users/bryce/Documents/GitHub/faiss/build_py/faiss/python/cmake_install.cmake",
+		"/Users/bryce/Documents/GitHub/faiss/build_py/demos/cmake_install.cmake",
+		"/Users/bryce/Documents/GitHub/faiss/build_py/benchs/cmake_install.cmake",
+		"/Users/bryce/Documents/GitHub/faiss/build_py/tutorial/cpp/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

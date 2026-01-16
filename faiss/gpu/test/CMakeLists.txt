@@ -21,11 +21,25 @@
 # Defines `gtest_discover_tests()`.
 include(GoogleTest)
 add_library(faiss_gpu_test_helper TestUtils.cpp)
-if(FAISS_ENABLE_ROCM)
-  target_link_libraries(faiss_gpu_test_helper PUBLIC faiss gtest hip::host)
+if(FAISS_ENABLE_MPS)
+  find_library(METAL_FRAMEWORK Metal REQUIRED)
+  find_library(MPS_FRAMEWORK MetalPerformanceShaders REQUIRED)
+  find_library(MPSGRAPH_FRAMEWORK MetalPerformanceShadersGraph REQUIRED)
+  find_library(FOUNDATION_FRAMEWORK Foundation REQUIRED)
+  target_link_libraries(
+    faiss_gpu_test_helper
+    PUBLIC
+    faiss
+    gtest_main
+    ${METAL_FRAMEWORK}
+    ${MPS_FRAMEWORK}
+    ${MPSGRAPH_FRAMEWORK}
+    ${FOUNDATION_FRAMEWORK})
+elseif(FAISS_ENABLE_ROCM)
+  target_link_libraries(faiss_gpu_test_helper PUBLIC faiss gtest_main hip::host)
 else()
   find_package(CUDAToolkit REQUIRED)
-  target_link_libraries(faiss_gpu_test_helper PUBLIC faiss gtest CUDA::cudart $<$<BOOL:${FAISS_ENABLE_CUVS}>:cuvs::cuvs> $<$<BOOL:${FAISS_ENABLE_CUVS}>:OpenMP::OpenMP_CXX>)
+  target_link_libraries(faiss_gpu_test_helper PUBLIC faiss gtest_main CUDA::cudart $<$<BOOL:${FAISS_ENABLE_CUVS}>:cuvs::cuvs> $<$<BOOL:${FAISS_ENABLE_CUVS}>:OpenMP::OpenMP_CXX>)
 endif()
 
 macro(faiss_gpu_test file)
@@ -38,27 +52,38 @@ macro(faiss_gpu_test file)
 endmacro()
 
 
-faiss_gpu_test(TestCodePacking.cpp)
-faiss_gpu_test(TestGpuIndexFlat.cpp)
-faiss_gpu_test(TestGpuIndexIVFFlat.cpp)
-faiss_gpu_test(TestGpuIndexBinaryFlat.cpp)
-faiss_gpu_test(TestGpuMemoryException.cpp)
-faiss_gpu_test(TestGpuIcmEncoder.cpp)
-faiss_gpu_test(TestGpuIndexIVFPQ.cpp)
-faiss_gpu_test(TestGpuIndexIVFScalarQuantizer.cpp)
-faiss_gpu_test(TestGpuResidualQuantizer.cpp)
-faiss_gpu_test(TestGpuDistance.${GPU_EXT_PREFIX})
-faiss_gpu_test(TestGpuSelect.${GPU_EXT_PREFIX})
-if(FAISS_ENABLE_CUVS)
-  faiss_gpu_test(TestGpuFilterConvert.cu)
-  faiss_gpu_test(TestGpuIndexBinaryCagra.cu)
-  faiss_gpu_test(TestGpuIndexCagra.cu)
+if(FAISS_ENABLE_MPS)
+  faiss_gpu_test(TestMpsIndexFlat.cpp)
+  faiss_gpu_test(TestMpsIndexBinaryFlat.cpp)
+  faiss_gpu_test(TestMpsKnn.cpp)
+  faiss_gpu_test(TestMpsIndexIVFFlat.cpp)
+  faiss_gpu_test(TestMpsIndexIVFPQ.cpp)
+else()
+  faiss_gpu_test(TestCodePacking.cpp)
+  faiss_gpu_test(TestGpuIndexFlat.cpp)
+  faiss_gpu_test(TestGpuIndexIVFFlat.cpp)
+  faiss_gpu_test(TestGpuIndexBinaryFlat.cpp)
+  faiss_gpu_test(TestGpuMemoryException.cpp)
+  faiss_gpu_test(TestGpuIcmEncoder.cpp)
+  faiss_gpu_test(TestGpuIndexIVFPQ.cpp)
+  faiss_gpu_test(TestGpuIndexIVFScalarQuantizer.cpp)
+  faiss_gpu_test(TestGpuResidualQuantizer.cpp)
+  faiss_gpu_test(TestGpuDistance.${GPU_EXT_PREFIX})
+  faiss_gpu_test(TestGpuSelect.${GPU_EXT_PREFIX})
+  if(FAISS_ENABLE_CUVS)
+    faiss_gpu_test(TestGpuFilterConvert.cu)
+    faiss_gpu_test(TestGpuIndexBinaryCagra.cu)
+    faiss_gpu_test(TestGpuIndexCagra.cu)
+  endif()
 endif()
 
 add_executable(demo_ivfpq_indexing_gpu EXCLUDE_FROM_ALL
   demo_ivfpq_indexing_gpu.cpp)
 
-if (FAISS_ENABLE_ROCM)
+if (FAISS_ENABLE_MPS)
+  target_link_libraries(demo_ivfpq_indexing_gpu
+    PRIVATE faiss gtest_main ${METAL_FRAMEWORK} ${MPS_FRAMEWORK} ${MPSGRAPH_FRAMEWORK} ${FOUNDATION_FRAMEWORK})
+elseif (FAISS_ENABLE_ROCM)
   target_link_libraries(demo_ivfpq_indexing_gpu
     PRIVATE faiss gtest_main hip::host)
 else()

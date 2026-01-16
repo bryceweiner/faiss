@@ -7,8 +7,7 @@
 
 #pragma once
 
-#include <cublas_v2.h>
-#include <cuda_runtime.h>
+#include <faiss/gpu/GpuApi.h>
 #include <faiss/impl/FaissAssert.h>
 #include <vector>
 
@@ -113,6 +112,33 @@ class CublasHandleScope {
     cublasHandle_t blasHandle_;
 };
 
+#if defined(FAISS_ENABLE_MPS)
+void streamWaitMps(
+        const std::vector<cudaStream_t>& waiting,
+        const std::vector<cudaStream_t>& waitOn);
+
+// RAII object to manage a cudaEvent_t (MPS no-op implementation)
+class CudaEvent {
+   public:
+    explicit CudaEvent(cudaStream_t stream, bool timer = false);
+    CudaEvent(const CudaEvent& event) = delete;
+    CudaEvent(CudaEvent&& event) noexcept;
+    ~CudaEvent();
+
+    inline cudaEvent_t get() {
+        return event_;
+    }
+
+    void streamWaitOnEvent(cudaStream_t stream);
+    void cpuWaitOnEvent();
+
+    CudaEvent& operator=(CudaEvent&& event) noexcept;
+    CudaEvent& operator=(CudaEvent& event) = delete;
+
+   private:
+    cudaEvent_t event_;
+};
+#else
 // RAII object to manage a cudaEvent_t
 class CudaEvent {
    public:
@@ -138,6 +164,7 @@ class CudaEvent {
    private:
     cudaEvent_t event_;
 };
+#endif
 
 /// Wrapper to test return status of CUDA functions
 #define CUDA_VERIFY(X)                      \
@@ -159,15 +186,26 @@ class CudaEvent {
         CUDA_VERIFY(cudaDeviceSynchronize()); \
     } while (0)
 #else
+#if defined(FAISS_ENABLE_MPS)
+#define CUDA_TEST_ERROR() \
+    do {                  \
+    } while (0)
+#else
 #define CUDA_TEST_ERROR()                \
     do {                                 \
         CUDA_VERIFY(cudaGetLastError()); \
     } while (0)
 #endif
+#endif
 
 /// Call for a collection of streams to wait on
 template <typename L1, typename L2>
 void streamWaitBase(const L1& listWaiting, const L2& listWaitOn) {
+#if defined(FAISS_ENABLE_MPS)
+    std::vector<cudaStream_t> waiting(listWaiting.begin(), listWaiting.end());
+    std::vector<cudaStream_t> waitOn(listWaitOn.begin(), listWaitOn.end());
+    streamWaitMps(waiting, waitOn);
+#else
     // For all the streams we are waiting on, create an event
     std::vector<cudaEvent_t> events;
     for (auto& stream : listWaitOn) {
@@ -187,6 +225,7 @@ void streamWaitBase(const L1& listWaiting, const L2& listWaitOn) {
     for (auto& event : events) {
         CUDA_VERIFY(cudaEventDestroy(event));
     }
+#endif
 }
 
 /// These versions allow usage of initializer_list as arguments, since

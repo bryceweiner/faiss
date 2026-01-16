@@ -1,0 +1,1043 @@
+{
+  "tests": 151,
+  "name": "AllTests",
+  "testsuites": [
+    {
+      "name": "BinaryFlat",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "accuracy",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_binary_flat.cpp",
+          "line": 16
+        }
+      ]
+    },
+    {
+      "name": "TestIvlistDealloc",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "IVFFlat",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_dealloc_invlists.cpp",
+          "line": 161
+        },
+        {
+          "name": "IVFSQ",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_dealloc_invlists.cpp",
+          "line": 165
+        },
+        {
+          "name": "IVFPQ",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_dealloc_invlists.cpp",
+          "line": 169
+        }
+      ]
+    },
+    {
+      "name": "IVFPQ",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "codec",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_ivfpq_codec.cpp",
+          "line": 62
+        },
+        {
+          "name": "accuracy",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_ivfpq_indexing.cpp",
+          "line": 17
+        }
+      ]
+    },
+    {
+      "name": "TestLowLevelIVF",
+      "tests": 15,
+      "testsuite": [
+        {
+          "name": "IVFFlatL2",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_lowlevel_ivf.cpp",
+          "line": 332
+        },
+        {
+          "name": "PCAIVFFlatL2",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_lowlevel_ivf.cpp",
+          "line": 336
+        },
+        {
+          "name": "IVFFlatIP",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_lowlevel_ivf.cpp",
+          "line": 340
+        },
+        {
+          "name": "IVFSQL2",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_lowlevel_ivf.cpp",
+          "line": 344
+        },
+        {
+          "name": "IVFSQIP",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_lowlevel_ivf.cpp",
+          "line": 348
+        },
+        {
+          "name": "IVFPQL2",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_lowlevel_ivf.cpp",
+          "line": 352
+        },
+        {
+          "name": "IVFPQIP",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_lowlevel_ivf.cpp",
+          "line": 356
+        },
+        {
+          "name": "IVFRaBitQ",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_lowlevel_ivf.cpp",
+          "line": 360
+        },
+        {
+          "name": "IVFRQ",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_lowlevel_ivf.cpp",
+          "line": 364
+        },
+        {
+          "name": "IVFPQFS_L2",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_lowlevel_ivf.cpp",
+          "line": 368
+        },
+        {
+          "name": "IVFPQFS_IP",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_lowlevel_ivf.cpp",
+          "line": 372
+        },
+        {
+          "name": "IVFPQFSr_L2",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_lowlevel_ivf.cpp",
+          "line": 376
+        },
+        {
+          "name": "IVFPQFSr_IP",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_lowlevel_ivf.cpp",
+          "line": 380
+        },
+        {
+          "name": "IVFBinary",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_lowlevel_ivf.cpp",
+          "line": 528
+        },
+        {
+          "name": "ThreadedSearch",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_lowlevel_ivf.cpp",
+          "line": 685
+        }
+      ]
+    },
+    {
+      "name": "IVF",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "list_context",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_ivf_index.cpp",
+          "line": 148
+        }
+      ]
+    },
+    {
+      "name": "MERGE",
+      "tests": 6,
+      "testsuite": [
+        {
+          "name": "merge_flat_no_ids",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_merge.cpp",
+          "line": 128
+        },
+        {
+          "name": "merge_flat",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_merge.cpp",
+          "line": 144
+        },
+        {
+          "name": "merge_flat_vt",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_merge.cpp",
+          "line": 160
+        },
+        {
+          "name": "merge_flat_ondisk",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_merge.cpp",
+          "line": 191
+        },
+        {
+          "name": "merge_flat_ondisk_2",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_merge.cpp",
+          "line": 214
+        },
+        {
+          "name": "merge_flat_ondisk_3",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_merge.cpp",
+          "line": 229
+        }
+      ]
+    },
+    {
+      "name": "Threading",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "openmp",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_omp_threads.cpp",
+          "line": 12
+        }
+      ]
+    },
+    {
+      "name": "ONDISK",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "make_invlists",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_ondisk_ivf.cpp",
+          "line": 54
+        },
+        {
+          "name": "test_add",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_ondisk_ivf.cpp",
+          "line": 96
+        },
+        {
+          "name": "make_invlists_threaded",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_ondisk_ivf.cpp",
+          "line": 160
+        }
+      ]
+    },
+    {
+      "name": "testSearchCentroid",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "IVFFlat",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_pairs_decoding.cpp",
+          "line": 177
+        },
+        {
+          "name": "PCAIVFFlat",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_pairs_decoding.cpp",
+          "line": 182
+        }
+      ]
+    },
+    {
+      "name": "testSearchAndReturnCentroids",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "IVFFlat",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_pairs_decoding.cpp",
+          "line": 187
+        },
+        {
+          "name": "PCAIVFFlat",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_pairs_decoding.cpp",
+          "line": 193
+        }
+      ]
+    },
+    {
+      "name": "TPO",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "IVFFlat",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_params_override.cpp",
+          "line": 167
+        },
+        {
+          "name": "IVFPQ",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_params_override.cpp",
+          "line": 174
+        },
+        {
+          "name": "IVFSQ",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_params_override.cpp",
+          "line": 181
+        },
+        {
+          "name": "IVFFlatPP",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_params_override.cpp",
+          "line": 188
+        }
+      ]
+    },
+    {
+      "name": "TSEL",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "IVFFlat",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_params_override.cpp",
+          "line": 195
+        },
+        {
+          "name": "IVFFPQ",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_params_override.cpp",
+          "line": 200
+        },
+        {
+          "name": "IVFFSQ",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_params_override.cpp",
+          "line": 205
+        }
+      ]
+    },
+    {
+      "name": "TPOB",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "IVF",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_params_override.cpp",
+          "line": 288
+        }
+      ]
+    },
+    {
+      "name": "PQEncoderGeneric",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "encode",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_pq_encoding.cpp",
+          "line": 40
+        }
+      ]
+    },
+    {
+      "name": "PQEncoder8",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "encode",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_pq_encoding.cpp",
+          "line": 70
+        }
+      ]
+    },
+    {
+      "name": "PQEncoder16",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "encode",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_pq_encoding.cpp",
+          "line": 88
+        }
+      ]
+    },
+    {
+      "name": "PQFastScan",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "set_packed_element",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_pq_encoding.cpp",
+          "line": 106
+        }
+      ]
+    },
+    {
+      "name": "SlidingWindow",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "IVFFlat",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_sliding_ivf.cpp",
+          "line": 194
+        },
+        {
+          "name": "PCAIVFFlat",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_sliding_ivf.cpp",
+          "line": 198
+        }
+      ]
+    },
+    {
+      "name": "SlidingInvlists",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "IVFFlat",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_sliding_ivf.cpp",
+          "line": 202
+        },
+        {
+          "name": "PCAIVFFlat",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_sliding_ivf.cpp",
+          "line": 206
+        }
+      ]
+    },
+    {
+      "name": "ThreadedIndex",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "SingleException",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_threaded_index.cpp",
+          "line": 89
+        },
+        {
+          "name": "MultipleException",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_threaded_index.cpp",
+          "line": 127
+        },
+        {
+          "name": "TestReplica",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_threaded_index.cpp",
+          "line": 165
+        },
+        {
+          "name": "TestShards",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_threaded_index.cpp",
+          "line": 214
+        }
+      ]
+    },
+    {
+      "name": "TRANS",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "IVFFlat",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_transfer_invlists.cpp",
+          "line": 143
+        },
+        {
+          "name": "IVFFlatPreproc",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_transfer_invlists.cpp",
+          "line": 147
+        }
+      ]
+    },
+    {
+      "name": "TestMemoryLeak",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "ivfflat",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_mem_leak.cpp",
+          "line": 17
+        }
+      ]
+    },
+    {
+      "name": "testCppcontribSaDecode",
+      "tests": 43,
+      "testsuite": [
+        {
+          "name": "D256_IVF256_PQ16",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1043
+        },
+        {
+          "name": "D256_IVF256_PQ8",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1048
+        },
+        {
+          "name": "D192_IVF256_PQ24",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1054
+        },
+        {
+          "name": "D192_IVF256_PQ16",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1060
+        },
+        {
+          "name": "D192_IVF256_PQ12",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1066
+        },
+        {
+          "name": "D160_IVF256_PQ40",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1072
+        },
+        {
+          "name": "D160_IVF256_PQ20",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1078
+        },
+        {
+          "name": "D160_IVF256_PQ10",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1084
+        },
+        {
+          "name": "D160_IVF256_PQ8",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1090
+        },
+        {
+          "name": "D128_IVF256_PQ8",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1096
+        },
+        {
+          "name": "D128_IVF256_PQ4",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1101
+        },
+        {
+          "name": "D64_IVF256_PQ16",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1107
+        },
+        {
+          "name": "D64_IVF256_PQ8",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1112
+        },
+        {
+          "name": "D256_Residual4x8_PQ16",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1125
+        },
+        {
+          "name": "D256_Residual4x8_PQ8",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1130
+        },
+        {
+          "name": "D160_Residual4x8_PQ10",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1136
+        },
+        {
+          "name": "D160_Residual2x8_PQ10",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1142
+        },
+        {
+          "name": "D160_Residual1x8_PQ10",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1148
+        },
+        {
+          "name": "D128_Residual4x8_PQ8",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1154
+        },
+        {
+          "name": "D128_Residual4x8_PQ4",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1159
+        },
+        {
+          "name": "D64_Residual4x8_PQ8",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1165
+        },
+        {
+          "name": "D64_Residual4x8_PQ4",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1170
+        },
+        {
+          "name": "D256_IVF1024_PQ16",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1176
+        },
+        {
+          "name": "D64_Residual1x9_PQ8",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1183
+        },
+        {
+          "name": "D256_PQ16",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1192
+        },
+        {
+          "name": "D160_PQ20",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1198
+        },
+        {
+          "name": "D256_MINMAXFP16_IVF256_PQ16",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1211
+        },
+        {
+          "name": "D256_MINMAXFP16_PQ16",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1217
+        },
+        {
+          "name": "D256_MINMAX_IVF256_PQ16",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1224
+        },
+        {
+          "name": "D256_MINMAX_PQ16",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1230
+        },
+        {
+          "name": "D256_PQ16x10",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1238
+        },
+        {
+          "name": "D256_PQ16x12",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1243
+        },
+        {
+          "name": "D160_PQ20x10",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1248
+        },
+        {
+          "name": "D160_PQ20x12",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1253
+        },
+        {
+          "name": "D256_IVF256_PQ16x10",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1258
+        },
+        {
+          "name": "D256_IVF256_PQ16x12",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1263
+        },
+        {
+          "name": "D256_MINMAXFP16_IVF256_PQ16x10",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1268
+        },
+        {
+          "name": "D256_MINMAXFP16_IVF1024_PQ16x10",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1275
+        },
+        {
+          "name": "D256_MINMAXFP16_IVF1024_PQ16x10_ALTERNATIVE",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1282
+        },
+        {
+          "name": "D160_Residual4x8_PQ8x10",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1289
+        },
+        {
+          "name": "D256_Residual1x9_PQ16x10",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1294
+        },
+        {
+          "name": "D256_Residual4x10_PQ16x10",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1302
+        },
+        {
+          "name": "D256_Residual4x12_PQ16x12",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_sa_decode.cpp",
+          "line": 1307
+        }
+      ]
+    },
+    {
+      "name": "testCppcontribUintreader",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "Test8bit",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_uintreader.cpp",
+          "line": 100
+        },
+        {
+          "name": "Test10bit",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_uintreader.cpp",
+          "line": 104
+        },
+        {
+          "name": "Test12bit",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_uintreader.cpp",
+          "line": 108
+        },
+        {
+          "name": "Test16bit",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_cppcontrib_uintreader.cpp",
+          "line": 112
+        }
+      ]
+    },
+    {
+      "name": "TestSIMDLib",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "TestCmpltAndBlendInplace",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_simdlib.cpp",
+          "line": 14
+        },
+        {
+          "name": "TestCmpltMinMaxFloat",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_simdlib.cpp",
+          "line": 39
+        },
+        {
+          "name": "TestCmpltMinMaxInt",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_simdlib.cpp",
+          "line": 72
+        },
+        {
+          "name": "TestCmpltMinMaxInt16",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_simdlib.cpp",
+          "line": 105
+        }
+      ]
+    },
+    {
+      "name": "testApproxTopk",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "COMMON",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_approx_topk.cpp",
+          "line": 190
+        }
+      ]
+    },
+    {
+      "name": "RCQCropping",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "test_cropping",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_RCQ_cropping.cpp",
+          "line": 16
+        },
+        {
+          "name": "search_params",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_RCQ_cropping.cpp",
+          "line": 75
+        }
+      ]
+    },
+    {
+      "name": "TestFvecL2sqrNy",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "D2",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_distances_simd.cpp",
+          "line": 43
+        }
+      ]
+    },
+    {
+      "name": "TestFvecInnerProductsNy",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "D2",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_distances_simd.cpp",
+          "line": 77
+        }
+      ]
+    },
+    {
+      "name": "TestFvecL2sqr",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "distances_L2_squared_y_transposed",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_distances_simd.cpp",
+          "line": 110
+        },
+        {
+          "name": "nearest_L2_squared_y_transposed",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_distances_simd.cpp",
+          "line": 159
+        }
+      ]
+    },
+    {
+      "name": "TestFvecL1",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "manhattan_distance",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_distances_simd.cpp",
+          "line": 218
+        }
+      ]
+    },
+    {
+      "name": "TestFvecLinf",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "chebyshev_distance",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_distances_simd.cpp",
+          "line": 241
+        }
+      ]
+    },
+    {
+      "name": "TestFvecMadd",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "multiple_add",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_distances_simd.cpp",
+          "line": 264
+        }
+      ]
+    },
+    {
+      "name": "TestFvecAdd",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "add_array",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_distances_simd.cpp",
+          "line": 289
+        },
+        {
+          "name": "add_value",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_distances_simd.cpp",
+          "line": 313
+        }
+      ]
+    },
+    {
+      "name": "Heap",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "addn_with_ids",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_heap.cpp",
+          "line": 15
+        },
+        {
+          "name": "addn_query_subset_with_ids",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_heap.cpp",
+          "line": 35
+        }
+      ]
+    },
+    {
+      "name": "TestCodeDistance",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "SUBQ4_NBITS8",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_code_distance.cpp",
+          "line": 226
+        },
+        {
+          "name": "SUBQ8_NBITS8",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_code_distance.cpp",
+          "line": 230
+        },
+        {
+          "name": "SUBQ16_NBITS8",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_code_distance.cpp",
+          "line": 234
+        },
+        {
+          "name": "SUBQ32_NBITS8",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_code_distance.cpp",
+          "line": 238
+        }
+      ]
+    },
+    {
+      "name": "HNSW",
+      "tests": 4,
+      "testsuite": [
+        {
+          "name": "Test_popmin",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_hnsw.cpp",
+          "line": 171
+        },
+        {
+          "name": "Test_popmin_identical_distances",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_hnsw.cpp",
+          "line": 180
+        },
+        {
+          "name": "Test_popmin_infinite_distances",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_hnsw.cpp",
+          "line": 189
+        },
+        {
+          "name": "Test_IndexHNSW_METRIC_Lp",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_hnsw.cpp",
+          "line": 199
+        }
+      ]
+    },
+    {
+      "name": "HNSWTest",
+      "tests": 6,
+      "testsuite": [
+        {
+          "name": "TEST_search_from_candidate_unbounded",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_hnsw.cpp",
+          "line": 454
+        },
+        {
+          "name": "TEST_greedy_update_nearest",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_hnsw.cpp",
+          "line": 488
+        },
+        {
+          "name": "TEST_search_from_candidates",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_hnsw.cpp",
+          "line": 511
+        },
+        {
+          "name": "TEST_search_neighbors_to_add",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_hnsw.cpp",
+          "line": 571
+        },
+        {
+          "name": "TEST_nb_neighbors_bound",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_hnsw.cpp",
+          "line": 611
+        },
+        {
+          "name": "TEST_search_level_0",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_hnsw.cpp",
+          "line": 621
+        }
+      ]
+    },
+    {
+      "name": "TestPartitioning",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "TestPartitioningBigRange",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_partitioning.cpp",
+          "line": 22
+        }
+      ]
+    },
+    {
+      "name": "TestFastScan",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "knnVSrange",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_fastscan_perf.cpp",
+          "line": 22
+        }
+      ]
+    },
+    {
+      "name": "IO",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "TestReadHNSWPQ_whenSDCDisabledFlagPassed_thenDisableSDCTable",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_disable_pq_sdc_tables.cpp",
+          "line": 20
+        }
+      ]
+    },
+    {
+      "name": "COMMON",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "test_common_trained_index",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_common_ivf_empty_index.cpp",
+          "line": 70
+        }
+      ]
+    },
+    {
+      "name": "TestCallback",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "timeout",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_callback.cpp",
+          "line": 16
+        }
+      ]
+    },
+    {
+      "name": "TestUtils",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "get_version",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_utils.cpp",
+          "line": 13
+        }
+      ]
+    },
+    {
+      "name": "TestHamming",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "test_crosshamming_count_thres",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_hamming.cpp",
+          "line": 123
+        },
+        {
+          "name": "test_hamming_thres",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_hamming.cpp",
+          "line": 171
+        },
+        {
+          "name": "test_hamming_knn",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_hamming.cpp",
+          "line": 269
+        }
+      ]
+    },
+    {
+      "name": "TestMmap",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "mmap_flatcodes",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_mmap.cpp",
+          "line": 62
+        },
+        {
+          "name": "mmap_binary_flatcodes",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_mmap.cpp",
+          "line": 166
+        }
+      ]
+    },
+    {
+      "name": "TestZeroCopy",
+      "tests": 2,
+      "testsuite": [
+        {
+          "name": "zerocopy_flatcodes",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_zerocopy.cpp",
+          "line": 57
+        },
+        {
+          "name": "zerocopy_binary_flatcodes",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/tests\/test_zerocopy.cpp",
+          "line": 149
+        }
+      ]
+    }
+  ]
+}

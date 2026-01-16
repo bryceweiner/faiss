@@ -15,7 +15,47 @@ target_sources(faiss_c PRIVATE
 file(GLOB FAISS_C_API_GPU_HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "*.h")
 faiss_install_headers("${FAISS_C_API_GPU_HEADERS}" c_api/gpu)
 
-if (FAISS_ENABLE_ROCM)
+if (FAISS_ENABLE_MPS)
+  find_library(METAL_FRAMEWORK Metal REQUIRED)
+  find_library(MPS_FRAMEWORK MetalPerformanceShaders REQUIRED)
+  find_library(MPSGRAPH_FRAMEWORK MetalPerformanceShadersGraph REQUIRED)
+  find_library(FOUNDATION_FRAMEWORK Foundation REQUIRED)
+  target_link_libraries(
+    faiss_c
+    PUBLIC
+    ${METAL_FRAMEWORK}
+    ${MPS_FRAMEWORK}
+    ${MPSGRAPH_FRAMEWORK}
+    ${FOUNDATION_FRAMEWORK})
+  target_link_libraries(
+    faiss_c_avx2
+    PUBLIC
+    ${METAL_FRAMEWORK}
+    ${MPS_FRAMEWORK}
+    ${MPSGRAPH_FRAMEWORK}
+    ${FOUNDATION_FRAMEWORK})
+  target_link_libraries(
+    faiss_c_avx512
+    PUBLIC
+    ${METAL_FRAMEWORK}
+    ${MPS_FRAMEWORK}
+    ${MPSGRAPH_FRAMEWORK}
+    ${FOUNDATION_FRAMEWORK})
+  target_link_libraries(
+    faiss_c_avx512_spr
+    PUBLIC
+    ${METAL_FRAMEWORK}
+    ${MPS_FRAMEWORK}
+    ${MPSGRAPH_FRAMEWORK}
+    ${FOUNDATION_FRAMEWORK})
+  target_link_libraries(
+    faiss_c_sve
+    PUBLIC
+    ${METAL_FRAMEWORK}
+    ${MPS_FRAMEWORK}
+    ${MPSGRAPH_FRAMEWORK}
+    ${FOUNDATION_FRAMEWORK})
+elseif (FAISS_ENABLE_ROCM)
   target_link_libraries(faiss_c PUBLIC hip::host roc::hipblas)
   target_link_libraries(faiss_c_avx2 PUBLIC hip::host roc::hipblas)
   target_link_libraries(faiss_c_avx512 PUBLIC hip::host roc::hipblas)

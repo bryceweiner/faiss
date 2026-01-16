@@ -1,0 +1,5 @@
+if(EXISTS "/Users/bryce/Documents/GitHub/faiss/build_cpp/faiss/gpu/test/TestMpsIndexIVFFlat[1]_tests.cmake")
+  include("/Users/bryce/Documents/GitHub/faiss/build_cpp/faiss/gpu/test/TestMpsIndexIVFFlat[1]_tests.cmake")
+else()
+  add_test(TestMpsIndexIVFFlat_NOT_BUILT TestMpsIndexIVFFlat_NOT_BUILT)
+endif()

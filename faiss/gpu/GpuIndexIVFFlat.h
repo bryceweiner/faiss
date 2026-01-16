@@ -90,6 +90,14 @@ class GpuIndexIVFFlat : public GpuIndexIVF {
     void reconstruct_n(idx_t i0, idx_t n, float* out) const override;
 
    protected:
+    void searchImpl_(
+            idx_t n,
+            const float* x,
+            int k,
+            float* distances,
+            idx_t* labels,
+            const SearchParameters* params) const override;
+
     /// Initialize appropriate index
     void setIndex_(
             GpuResources* resources,

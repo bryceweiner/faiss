@@ -1,0 +1,5 @@
+if(EXISTS "/Users/bryce/Documents/GitHub/faiss/build-mps/faiss/gpu/test/TestMpsKnn[1]_tests.cmake")
+  include("/Users/bryce/Documents/GitHub/faiss/build-mps/faiss/gpu/test/TestMpsKnn[1]_tests.cmake")
+else()
+  add_test(TestMpsKnn_NOT_BUILT TestMpsKnn_NOT_BUILT)
+endif()

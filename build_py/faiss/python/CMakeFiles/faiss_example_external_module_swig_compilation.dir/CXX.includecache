@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/bryce/Documents/GitHub/faiss/faiss/python/faiss_example_external_module.swig
+faiss/impl/FaissException.h
+-
+faiss/impl/IDSelector.h
+-
+

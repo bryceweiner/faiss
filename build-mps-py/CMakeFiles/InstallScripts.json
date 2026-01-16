@@ -1,0 +1,13 @@
+{
+	"InstallScripts" : 
+	[
+		"/Users/bryce/Documents/GitHub/faiss/build-mps-py/cmake_install.cmake",
+		"/Users/bryce/Documents/GitHub/faiss/build-mps-py/faiss/cmake_install.cmake",
+		"/Users/bryce/Documents/GitHub/faiss/build-mps-py/faiss/gpu/cmake_install.cmake",
+		"/Users/bryce/Documents/GitHub/faiss/build-mps-py/faiss/python/cmake_install.cmake",
+		"/Users/bryce/Documents/GitHub/faiss/build-mps-py/demos/cmake_install.cmake",
+		"/Users/bryce/Documents/GitHub/faiss/build-mps-py/benchs/cmake_install.cmake",
+		"/Users/bryce/Documents/GitHub/faiss/build-mps-py/tutorial/cpp/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

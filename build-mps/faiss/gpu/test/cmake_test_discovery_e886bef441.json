@@ -1,0 +1,17 @@
+{
+  "tests": 1,
+  "name": "AllTests",
+  "testsuites": [
+    {
+      "name": "MpsKnn",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "BruteForceL2",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/faiss\/gpu\/test\/TestMpsKnn.cpp",
+          "line": 8
+        }
+      ]
+    }
+  ]
+}

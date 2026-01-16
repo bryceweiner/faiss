@@ -10,7 +10,7 @@
 #ifndef FAISS_STANDARD_GPURESOURCES_C_H
 #define FAISS_STANDARD_GPURESOURCES_C_H
 
-#include <cuda_runtime_api.h>
+#include <faiss/gpu/GpuApi.h>
 #include "../faiss_c.h"
 #include "GpuResources_c.h"
 

@@ -53,7 +53,11 @@ typedef unsigned long long uint64_t;
 typedef long long int64_t;
 #endif
 
+#ifdef FAISS_ENABLE_MPS
+typedef unsigned long size_t;
+#else
 typedef uint64_t size_t;
+#endif
 
 
 #define __restrict
@@ -357,15 +361,17 @@ void gpu_sync_all_devices();
 #include <faiss/gpu/GpuClonerOptions.h>
 #include <faiss/gpu/GpuIndex.h>
 #include <faiss/gpu/GpuIndexFlat.h>
+#include <faiss/gpu/GpuIndexBinaryFlat.h>
+#include <faiss/gpu/GpuDistance.h>
 #include <faiss/gpu/GpuIndexIVF.h>
 #include <faiss/gpu/GpuIndexIVFPQ.h>
 #include <faiss/gpu/GpuIndexIVFFlat.h>
-#include <faiss/gpu/GpuIndexIVFScalarQuantizer.h>
-#include <faiss/gpu/GpuIndexBinaryFlat.h>
+#ifndef FAISS_ENABLE_MPS
 #include <faiss/gpu/GpuAutoTune.h>
 #include <faiss/gpu/GpuCloner.h>
-#include <faiss/gpu/GpuDistance.h>
 #include <faiss/gpu/GpuIcmEncoder.h>
+#include <faiss/gpu/GpuIndexIVFScalarQuantizer.h>
+#endif
 
 int get_num_gpus()
 {
@@ -684,13 +690,23 @@ struct faiss::simd16uint16 {};
 %include  <faiss/gpu/GpuIndexBinaryCagra.h>
 #endif
 %include  <faiss/gpu/GpuIndexFlat.h>
+%include  <faiss/gpu/GpuIndexBinaryFlat.h>
+%include  <faiss/gpu/GpuDistance.h>
 %include  <faiss/gpu/GpuIndexIVF.h>
 %include  <faiss/gpu/GpuIndexIVFPQ.h>
 %include  <faiss/gpu/GpuIndexIVFFlat.h>
-%include  <faiss/gpu/GpuIndexIVFScalarQuantizer.h>
-%include  <faiss/gpu/GpuIndexBinaryFlat.h>
-%include  <faiss/gpu/GpuDistance.h>
+#ifndef FAISS_ENABLE_MPS
 %include  <faiss/gpu/GpuIcmEncoder.h>
+%include  <faiss/gpu/GpuCloner.h>
+%include  <faiss/gpu/GpuAutoTune.h>
+%include  <faiss/gpu/GpuIndexIVFScalarQuantizer.h>
+#endif
+#ifndef FAISS_ENABLE_MPS
+%include  <faiss/gpu/GpuIcmEncoder.h>
+%include  <faiss/gpu/GpuCloner.h>
+%include  <faiss/gpu/GpuAutoTune.h>
+%include  <faiss/gpu/GpuIndexIVFScalarQuantizer.h>
+#endif
 
 #endif
 
@@ -816,7 +832,9 @@ struct faiss::simd16uint16 {};
 #endif
     DOWNCAST_GPU ( GpuIndexIVFPQ )
     DOWNCAST_GPU ( GpuIndexIVFFlat )
+#ifndef FAISS_ENABLE_MPS
     DOWNCAST_GPU ( GpuIndexIVFScalarQuantizer )
+#endif
     DOWNCAST_GPU ( GpuIndexFlat )
 #endif
     // default for non-recognized classes
@@ -943,13 +961,17 @@ faiss::Quantizer * downcast_Quantizer (faiss::Quantizer *aq)
 
 #ifdef GPU_WRAPPER
 
+#ifndef FAISS_ENABLE_MPS
 %include  <faiss/gpu/GpuAutoTune.h>
+#endif
 
 %newobject index_gpu_to_cpu;
 %newobject index_cpu_to_gpu;
 %newobject index_cpu_to_gpu_multiple;
 
+#ifndef FAISS_ENABLE_MPS
 %include  <faiss/gpu/GpuCloner.h>
+#endif
 
 #endif
 

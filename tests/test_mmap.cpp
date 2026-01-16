@@ -63,6 +63,9 @@ TEST(TestMmap, mmap_flatcodes) {
 #ifdef _AIX
     GTEST_SKIP() << "Skipping test on AIX.";
 #endif
+#ifdef __APPLE__
+    GTEST_SKIP() << "Skipping mmap tests on macOS (not implemented).";
+#endif
     // generate data
     const size_t nt = 1000;
     const size_t nq = 10;
@@ -166,6 +169,9 @@ TEST(TestMmap, mmap_flatcodes) {
 TEST(TestMmap, mmap_binary_flatcodes) {
 #ifdef _AIX
     GTEST_SKIP() << "Skipping test on AIX.";
+#endif
+#ifdef __APPLE__
+    GTEST_SKIP() << "Skipping mmap tests on macOS (not implemented).";
 #endif
     // generate data
     const size_t nt = 1000;

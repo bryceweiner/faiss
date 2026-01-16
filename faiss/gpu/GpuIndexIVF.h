@@ -148,6 +148,12 @@ class GpuIndexIVF : public GpuIndex, public IndexIVFInterface {
 
     /// For a trained/initialized index, this is a reference to the base class
     std::shared_ptr<IVFBase> baseIndex_;
+
+#if defined(FAISS_ENABLE_MPS)
+    void setCpuIndex_(std::unique_ptr<IndexIVF> index);
+    IndexIVF* getCpuIndex_() const;
+    std::unique_ptr<IndexIVF> cpuIndex_;
+#endif
 };
 
 } // namespace gpu

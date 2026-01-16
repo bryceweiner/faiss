@@ -1,0 +1,17 @@
+{
+  "tests": 1,
+  "name": "AllTests",
+  "testsuites": [
+    {
+      "name": "MpsIndexBinaryFlat",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "BasicSearch",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/faiss\/gpu\/test\/TestMpsIndexBinaryFlat.cpp",
+          "line": 8
+        }
+      ]
+    }
+  ]
+}

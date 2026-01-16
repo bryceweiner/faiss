@@ -1,0 +1,1 @@
+/usr/bin/c++  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names "CMakeFiles/1-Flat.dir/1-Flat.cpp.o" -o 1-Flat  ../../faiss/libfaiss.a /opt/homebrew/opt/libomp/lib/libomp.dylib -framework Accelerate -lm -ldl -framework Metal -framework MetalPerformanceShaders -framework MetalPerformanceShadersGraph -framework Foundation

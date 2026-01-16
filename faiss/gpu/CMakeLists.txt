@@ -18,70 +18,85 @@
 # the License.
 # =============================================================================
 
-set(FAISS_GPU_SRC
-  GpuAutoTune.cpp
-  GpuCloner.cpp
-  GpuDistance.cu
-  GpuIcmEncoder.cu
-  GpuIndex.cu
-  GpuIndexBinaryFlat.cu
-  GpuIndexFlat.cu
-  GpuIndexIVF.cu
-  GpuIndexIVFFlat.cu
-  GpuIndexIVFPQ.cu
-  GpuIndexIVFScalarQuantizer.cu
-  GpuResources.cpp
-  StandardGpuResources.cpp
-  impl/BinaryDistance.cu
-  impl/BinaryFlatIndex.cu
-  impl/BroadcastSum.cu
-  impl/Distance.cu
-  impl/FlatIndex.cu
-  impl/IndexUtils.cu
-  impl/IVFAppend.cu
-  impl/IVFBase.cu
-  impl/IVFFlat.cu
-  impl/IVFFlatScan.cu
-  impl/IVFInterleaved.cu
-  impl/IVFPQ.cu
-  impl/IVFUtils.cu
-  impl/IVFUtilsSelect1.cu
-  impl/IVFUtilsSelect2.cu
-  impl/InterleavedCodes.cpp
-  impl/L2Norm.cu
-  impl/L2Select.cu
-  impl/PQScanMultiPassPrecomputed.cu
-  impl/RemapIndices.cpp
-  impl/VectorResidual.cu
-  impl/IcmEncoder.cu
-  utils/BlockSelectFloat.cu
-  utils/DeviceUtils.cu
-  utils/StackDeviceMemory.cpp
-  utils/Timer.cpp
-  utils/WarpSelectFloat.cu
-  utils/blockselect/BlockSelectFloat1.cu
-  utils/blockselect/BlockSelectFloat32.cu
-  utils/blockselect/BlockSelectFloat64.cu
-  utils/blockselect/BlockSelectFloat128.cu
-  utils/blockselect/BlockSelectFloat256.cu
-  utils/blockselect/BlockSelectFloatF512.cu
-  utils/blockselect/BlockSelectFloatF1024.cu
-  utils/blockselect/BlockSelectFloatF2048.cu
-  utils/blockselect/BlockSelectFloatT512.cu
-  utils/blockselect/BlockSelectFloatT1024.cu
-  utils/blockselect/BlockSelectFloatT2048.cu
-  utils/warpselect/WarpSelectFloat1.cu
-  utils/warpselect/WarpSelectFloat32.cu
-  utils/warpselect/WarpSelectFloat64.cu
-  utils/warpselect/WarpSelectFloat128.cu
-  utils/warpselect/WarpSelectFloat256.cu
-  utils/warpselect/WarpSelectFloatF512.cu
-  utils/warpselect/WarpSelectFloatF1024.cu
-  utils/warpselect/WarpSelectFloatF2048.cu
-  utils/warpselect/WarpSelectFloatT512.cu
-  utils/warpselect/WarpSelectFloatT1024.cu
-  utils/warpselect/WarpSelectFloatT2048.cu
-)
+if(FAISS_ENABLE_MPS)
+  set(FAISS_GPU_SRC
+    mps/MpsDeviceUtils.mm
+    mps/MpsIndex.mm
+    mps/MpsIndexIVF.mm
+    mps/MpsIndexIVFFlat.mm
+    mps/MpsIndexIVFPQ.mm
+    mps/MpsResources.mm
+    mps/MpsIndexFlat.mm
+    mps/MpsIndexBinaryFlat.mm
+    mps/MpsKnn.mm
+  )
+  set_source_files_properties(${FAISS_GPU_SRC} PROPERTIES COMPILE_OPTIONS "-fobjc-arc")
+else()
+  set(FAISS_GPU_SRC
+    GpuAutoTune.cpp
+    GpuCloner.cpp
+    GpuDistance.cu
+    GpuIcmEncoder.cu
+    GpuIndex.cu
+    GpuIndexBinaryFlat.cu
+    GpuIndexFlat.cu
+    GpuIndexIVF.cu
+    GpuIndexIVFFlat.cu
+    GpuIndexIVFPQ.cu
+    GpuIndexIVFScalarQuantizer.cu
+    GpuResources.cpp
+    StandardGpuResources.cpp
+    impl/BinaryDistance.cu
+    impl/BinaryFlatIndex.cu
+    impl/BroadcastSum.cu
+    impl/Distance.cu
+    impl/FlatIndex.cu
+    impl/IndexUtils.cu
+    impl/IVFAppend.cu
+    impl/IVFBase.cu
+    impl/IVFFlat.cu
+    impl/IVFFlatScan.cu
+    impl/IVFInterleaved.cu
+    impl/IVFPQ.cu
+    impl/IVFUtils.cu
+    impl/IVFUtilsSelect1.cu
+    impl/IVFUtilsSelect2.cu
+    impl/InterleavedCodes.cpp
+    impl/L2Norm.cu
+    impl/L2Select.cu
+    impl/PQScanMultiPassPrecomputed.cu
+    impl/RemapIndices.cpp
+    impl/VectorResidual.cu
+    impl/IcmEncoder.cu
+    utils/BlockSelectFloat.cu
+    utils/DeviceUtils.cu
+    utils/StackDeviceMemory.cpp
+    utils/Timer.cpp
+    utils/WarpSelectFloat.cu
+    utils/blockselect/BlockSelectFloat1.cu
+    utils/blockselect/BlockSelectFloat32.cu
+    utils/blockselect/BlockSelectFloat64.cu
+    utils/blockselect/BlockSelectFloat128.cu
+    utils/blockselect/BlockSelectFloat256.cu
+    utils/blockselect/BlockSelectFloatF512.cu
+    utils/blockselect/BlockSelectFloatF1024.cu
+    utils/blockselect/BlockSelectFloatF2048.cu
+    utils/blockselect/BlockSelectFloatT512.cu
+    utils/blockselect/BlockSelectFloatT1024.cu
+    utils/blockselect/BlockSelectFloatT2048.cu
+    utils/warpselect/WarpSelectFloat1.cu
+    utils/warpselect/WarpSelectFloat32.cu
+    utils/warpselect/WarpSelectFloat64.cu
+    utils/warpselect/WarpSelectFloat128.cu
+    utils/warpselect/WarpSelectFloat256.cu
+    utils/warpselect/WarpSelectFloatF512.cu
+    utils/warpselect/WarpSelectFloatF1024.cu
+    utils/warpselect/WarpSelectFloatF2048.cu
+    utils/warpselect/WarpSelectFloatT512.cu
+    utils/warpselect/WarpSelectFloatT1024.cu
+    utils/warpselect/WarpSelectFloatT2048.cu
+  )
+endif()
 
 set(FAISS_GPU_HEADERS
   GpuAutoTune.h
@@ -248,7 +263,9 @@ function(generate_ivf_interleaved_code)
   set(FAISS_GPU_SRC "${FAISS_GPU_SRC}" PARENT_SCOPE)
 endfunction()
 
-generate_ivf_interleaved_code()
+if (NOT FAISS_ENABLE_MPS)
+  generate_ivf_interleaved_code()
+endif()
 
 if(FAISS_ENABLE_CUVS)
   list(APPEND FAISS_GPU_HEADERS
@@ -317,6 +334,10 @@ if(FAISS_ENABLE_CUVS)
   target_compile_definitions(faiss_gpu_objs PUBLIC USE_NVIDIA_CUVS=1)
 endif()
 
+if(FAISS_ENABLE_MPS)
+  target_compile_definitions(faiss_gpu_objs PUBLIC FAISS_ENABLE_MPS=1)
+endif()
+
 if (FAISS_ENABLE_ROCM)
   list(TRANSFORM FAISS_GPU_SRC REPLACE cu$ hip)
 endif()
@@ -339,7 +360,23 @@ foreach(header ${FAISS_GPU_HEADERS})
   )
 endforeach()
 
-if (FAISS_ENABLE_ROCM)
+if (FAISS_ENABLE_MPS)
+  find_library(METAL_FRAMEWORK Metal REQUIRED)
+  find_library(MPS_FRAMEWORK MetalPerformanceShaders REQUIRED)
+  find_library(MPSGRAPH_FRAMEWORK MetalPerformanceShadersGraph REQUIRED)
+  find_library(FOUNDATION_FRAMEWORK Foundation REQUIRED)
+  target_include_directories(
+    faiss_gpu_objs
+    PRIVATE
+    /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/MetalPerformanceShaders.framework/Versions/A/Frameworks/MPSCore.framework/Versions/A/Headers)
+  target_link_libraries(
+    faiss_gpu_objs
+    PRIVATE
+    ${METAL_FRAMEWORK}
+    ${MPS_FRAMEWORK}
+    ${MPSGRAPH_FRAMEWORK}
+    ${FOUNDATION_FRAMEWORK})
+elseif (FAISS_ENABLE_ROCM)
   target_link_libraries(faiss_gpu_objs PRIVATE hip::host roc::hipblas)
   target_compile_options(faiss_gpu_objs PRIVATE)
 else()

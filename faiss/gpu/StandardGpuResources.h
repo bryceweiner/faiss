@@ -30,7 +30,15 @@
 
 #include <faiss/gpu/GpuResources.h>
 #include <faiss/gpu/utils/DeviceUtils.h>
+#if defined(FAISS_ENABLE_MPS)
+namespace faiss {
+namespace gpu {
+class StackDeviceMemory;
+}
+}
+#else
 #include <faiss/gpu/utils/StackDeviceMemory.h>
+#endif
 #include <functional>
 #include <map>
 #include <unordered_map>
@@ -137,7 +145,9 @@ class StandardGpuResourcesImpl : public GpuResources {
     std::unordered_map<int, std::unordered_map<void*, AllocRequest>> allocs_;
 
     /// Temporary memory provider, per each device
+#if !defined(FAISS_ENABLE_MPS)
     std::unordered_map<int, std::unique_ptr<StackDeviceMemory>> tempMemory_;
+#endif
 
     /// Our default stream that work is ordered on, one per each device
     std::unordered_map<int, cudaStream_t> defaultStreams_;

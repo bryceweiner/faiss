@@ -46,7 +46,11 @@ macro(configure_swigfaiss source)
     set_source_files_properties(${source} PROPERTIES
       COMPILE_DEFINITIONS GPU_WRAPPER
     )
-    if (FAISS_ENABLE_ROCM)
+    if (FAISS_ENABLE_MPS)
+      set_property(SOURCE ${source} APPEND PROPERTY
+        COMPILE_DEFINITIONS FAISS_ENABLE_MPS
+      )
+    elseif (FAISS_ENABLE_ROCM)
       set_property(SOURCE ${source} APPEND PROPERTY
         COMPILE_DEFINITIONS FAISS_ENABLE_ROCM
       )
@@ -204,7 +208,17 @@ if(FAISS_ENABLE_SVS)
 endif()
 
 if(FAISS_ENABLE_GPU)
-  if(FAISS_ENABLE_ROCM)
+  if(FAISS_ENABLE_MPS)
+    find_library(METAL_FRAMEWORK Metal REQUIRED)
+    find_library(MPS_FRAMEWORK MetalPerformanceShaders REQUIRED)
+    find_library(MPSGRAPH_FRAMEWORK MetalPerformanceShadersGraph REQUIRED)
+    find_library(FOUNDATION_FRAMEWORK Foundation REQUIRED)
+    target_link_libraries(swigfaiss PRIVATE ${METAL_FRAMEWORK} ${MPS_FRAMEWORK} ${MPSGRAPH_FRAMEWORK} ${FOUNDATION_FRAMEWORK})
+    target_link_libraries(swigfaiss_avx2 PRIVATE ${METAL_FRAMEWORK} ${MPS_FRAMEWORK} ${MPSGRAPH_FRAMEWORK} ${FOUNDATION_FRAMEWORK})
+    target_link_libraries(swigfaiss_avx512 PRIVATE ${METAL_FRAMEWORK} ${MPS_FRAMEWORK} ${MPSGRAPH_FRAMEWORK} ${FOUNDATION_FRAMEWORK})
+    target_link_libraries(swigfaiss_avx512_spr PRIVATE ${METAL_FRAMEWORK} ${MPS_FRAMEWORK} ${MPSGRAPH_FRAMEWORK} ${FOUNDATION_FRAMEWORK})
+    target_link_libraries(swigfaiss_sve PRIVATE ${METAL_FRAMEWORK} ${MPS_FRAMEWORK} ${MPSGRAPH_FRAMEWORK} ${FOUNDATION_FRAMEWORK})
+  elseif(FAISS_ENABLE_ROCM)
     target_link_libraries(swigfaiss PRIVATE hip::host)
     target_link_libraries(swigfaiss_avx2 PRIVATE hip::host)
     target_link_libraries(swigfaiss_avx512 PRIVATE hip::host)

@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/Users/bryce/Documents/GitHub/faiss/build_cpp/_deps/googletest-subbuild/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

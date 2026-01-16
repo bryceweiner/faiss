@@ -1,0 +1,5 @@
+if(EXISTS "/Users/bryce/Documents/GitHub/faiss/build_cpp/tests/faiss_test[1]_tests.cmake")
+  include("/Users/bryce/Documents/GitHub/faiss/build_cpp/tests/faiss_test[1]_tests.cmake")
+else()
+  add_test(faiss_test_NOT_BUILT faiss_test_NOT_BUILT)
+endif()

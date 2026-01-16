@@ -1,0 +1,6 @@
+148:TestMmap.mmap_flatcodes
+149:TestMmap.mmap_binary_flatcodes
+152:MpsIndexFlat.BasicSearchL2
+154:MpsKnn.BruteForceL2
+155:MpsIndexIVFFlat.BasicSearch
+156:MpsIndexIVFPQ.BasicSearch

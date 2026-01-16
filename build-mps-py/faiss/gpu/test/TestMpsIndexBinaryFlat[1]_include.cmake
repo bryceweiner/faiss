@@ -1,0 +1,5 @@
+if(EXISTS "/Users/bryce/Documents/GitHub/faiss/build-mps-py/faiss/gpu/test/TestMpsIndexBinaryFlat[1]_tests.cmake")
+  include("/Users/bryce/Documents/GitHub/faiss/build-mps-py/faiss/gpu/test/TestMpsIndexBinaryFlat[1]_tests.cmake")
+else()
+  add_test(TestMpsIndexBinaryFlat_NOT_BUILT TestMpsIndexBinaryFlat_NOT_BUILT)
+endif()

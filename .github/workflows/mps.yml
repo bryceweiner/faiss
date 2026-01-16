@@ -1,0 +1,42 @@
+name: mps
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  build-test:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install build dependencies
+        run: |
+          brew install swig
+          python -m pip install --upgrade pip
+          python -m pip install numpy pytest torch
+
+      - name: Configure
+        run: |
+          cmake -S . -B build \
+            -DFAISS_ENABLE_GPU=ON \
+            -DFAISS_ENABLE_MPS=ON \
+            -DFAISS_ENABLE_PYTHON=ON \
+            -DBUILD_TESTING=ON
+
+      - name: Build
+        run: cmake --build build --parallel
+
+      - name: C++ Tests
+        run: ctest --test-dir build --output-on-failure
+
+      - name: Python MPS Tests
+        run: |
+          PYTHONPATH="build/faiss/python:faiss/python" \
+          python -m pytest tests/test_mps_torch_interop.py

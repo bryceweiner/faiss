@@ -1,0 +1,17 @@
+{
+  "tests": 1,
+  "name": "AllTests",
+  "testsuites": [
+    {
+      "name": "MpsIndexIVFFlat",
+      "tests": 1,
+      "testsuite": [
+        {
+          "name": "BasicSearch",
+          "file": "\/Users\/bryce\/Documents\/GitHub\/faiss\/faiss\/gpu\/test\/TestMpsIndexIVFFlat.cpp",
+          "line": 9
+        }
+      ]
+    }
+  ]
+}

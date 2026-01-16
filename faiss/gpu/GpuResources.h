@@ -23,8 +23,7 @@
 
 #pragma once
 
-#include <cublas_v2.h>
-#include <cuda_runtime.h>
+#include <faiss/gpu/GpuApi.h>
 #include <faiss/impl/FaissAssert.h>
 
 #include <memory>
