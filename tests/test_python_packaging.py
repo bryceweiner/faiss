@@ -15,6 +15,7 @@ class TestPythonPackaging(unittest.TestCase):
         contents = setup_py.read_text(encoding="utf-8")
         self.assertIn("Python_EXECUTABLE", contents)
         self.assertIn("_find_python_source", contents)
+        self.assertIn("(build_dir, root_dir)", contents)
 
 
 if __name__ == "__main__":

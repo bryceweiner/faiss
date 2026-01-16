@@ -128,7 +128,7 @@ def _candidate_lib_dirs():
     root_dir = Path(__file__).resolve().parent
     repo_root = _resolve_repo_root()
     build_dir = repo_root / "build-pip" / "faiss" / "python"
-    return [root_dir, build_dir]
+    return [build_dir, root_dir]
 
 
 def _find_lib(name):
@@ -143,7 +143,7 @@ def _find_python_source(name):
     root_dir = Path(__file__).resolve().parent
     repo_root = _resolve_repo_root()
     build_dir = repo_root / "build-pip" / "faiss" / "python"
-    for base in (root_dir, build_dir):
+    for base in (build_dir, root_dir):
         candidate = base / name
         if candidate.exists():
             return candidate
