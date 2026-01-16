@@ -237,47 +237,49 @@ if(FAISS_ENABLE_GPU)
   endif()
 endif()
 
-find_package(OpenMP REQUIRED)
+if(FAISS_ENABLE_OPENMP)
+  find_package(OpenMP)
+endif()
 
 target_link_libraries(swigfaiss PRIVATE
   faiss
   Python::Module
   Python::NumPy
-  OpenMP::OpenMP_CXX
+  $<$<BOOL:${OpenMP_CXX_FOUND}>:OpenMP::OpenMP_CXX>
 )
 
 target_link_libraries(swigfaiss_avx2 PRIVATE
   faiss_avx2
   Python::Module
   Python::NumPy
-  OpenMP::OpenMP_CXX
+  $<$<BOOL:${OpenMP_CXX_FOUND}>:OpenMP::OpenMP_CXX>
 )
 
 target_link_libraries(swigfaiss_avx512 PRIVATE
   faiss_avx512
   Python::Module
   Python::NumPy
-  OpenMP::OpenMP_CXX
+  $<$<BOOL:${OpenMP_CXX_FOUND}>:OpenMP::OpenMP_CXX>
 )
 
 target_link_libraries(swigfaiss_avx512_spr PRIVATE
   faiss_avx512_spr
   Python::Module
   Python::NumPy
-  OpenMP::OpenMP_CXX
+  $<$<BOOL:${OpenMP_CXX_FOUND}>:OpenMP::OpenMP_CXX>
 )
 
 target_link_libraries(swigfaiss_sve PRIVATE
   faiss_sve
   Python::Module
   Python::NumPy
-  OpenMP::OpenMP_CXX
+  $<$<BOOL:${OpenMP_CXX_FOUND}>:OpenMP::OpenMP_CXX>
 )
 
 target_link_libraries(faiss_example_external_module PRIVATE
   Python::Module
   Python::NumPy
-  OpenMP::OpenMP_CXX
+  $<$<BOOL:${OpenMP_CXX_FOUND}>:OpenMP::OpenMP_CXX>
   swigfaiss
   faiss
 )
