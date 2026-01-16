@@ -86,11 +86,13 @@ endif()
 ]=])
 endif()
 
-find_package(OpenMP REQUIRED)
+if(FAISS_ENABLE_OPENMP)
+  find_package(OpenMP)
+endif()
 find_package(GTest CONFIG REQUIRED)
 
 target_link_libraries(faiss_test PRIVATE
-  OpenMP::OpenMP_CXX
+  $<$<BOOL:${OpenMP_CXX_FOUND}>:OpenMP::OpenMP_CXX>
   GTest::gtest_main
   $<$<BOOL:${FAISS_ENABLE_ROCM}>:hip::host>
 )
