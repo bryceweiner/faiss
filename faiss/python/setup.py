@@ -10,6 +10,7 @@ import platform
 import shutil
 import subprocess
 from pathlib import Path
+import sys
 
 from setuptools import setup
 
@@ -75,6 +76,16 @@ def _run_cmake_build():
         "-DFAISS_ENABLE_PYTHON=ON",
         "-DBUILD_TESTING=OFF",
     ]
+    cmake_args.append(f"-DPython_EXECUTABLE={sys.executable}")
+    cmake_args.append(f"-DPython3_EXECUTABLE={sys.executable}")
+    try:
+        import numpy
+
+        numpy_include = numpy.get_include()
+        cmake_args.append(f"-DPython_NumPy_INCLUDE_DIRS={numpy_include}")
+        cmake_args.append(f"-DPython3_NumPy_INCLUDE_DIRS={numpy_include}")
+    except Exception:
+        pass
     if env.get("FAISS_ENABLE_GPU"):
         cmake_args.append(f"-DFAISS_ENABLE_GPU={env['FAISS_ENABLE_GPU']}")
     if env.get("FAISS_ENABLE_MPS"):
