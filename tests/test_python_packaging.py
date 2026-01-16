@@ -18,6 +18,13 @@ class TestPythonPackaging(unittest.TestCase):
         self.assertIn("_find_python_source_for_lib", contents)
         self.assertIn("(build_dir, root_dir)", contents)
 
+    def test_swigfaiss_mps_gpu_vector_guard(self):
+        repo_root = pathlib.Path(__file__).resolve().parents[1]
+        swig = repo_root / "faiss" / "python" / "swigfaiss.swig"
+        contents = swig.read_text(encoding="utf-8")
+        self.assertIn("%template(GpuResourcesVector)", contents)
+        self.assertIn("FAISS_ENABLE_MPS", contents)
+
 
 if __name__ == "__main__":
     unittest.main()

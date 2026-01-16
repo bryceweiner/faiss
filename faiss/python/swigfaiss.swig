@@ -319,7 +319,9 @@ namespace std {
 #endif // !SWIGWIN
 
 #ifdef GPU_WRAPPER
+#ifndef FAISS_ENABLE_MPS
 %template(GpuResourcesVector) std::vector<faiss::gpu::GpuResourcesProvider*>;
+#endif
 #endif
 
 // produces an error on the Mac
