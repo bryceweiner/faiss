@@ -16,6 +16,7 @@ class TestPythonPackaging(unittest.TestCase):
         self.assertIn("Python_EXECUTABLE", contents)
         self.assertIn("_find_python_source", contents)
         self.assertIn("_find_python_source_for_lib", contents)
+        self.assertIn("_copy_extension", contents)
         self.assertIn("(build_dir, root_dir)", contents)
 
     def test_swigfaiss_mps_gpu_vector_guard(self):

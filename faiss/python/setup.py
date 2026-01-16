@@ -132,10 +132,16 @@ def _candidate_lib_dirs():
 
 
 def _find_lib(name):
+    ext_suffix = sysconfig.get_config_var("EXT_SUFFIX")
     for base in _candidate_lib_dirs():
         candidate = base / name
         if candidate.exists():
             return str(candidate)
+        if ext_suffix and name.endswith(ext) and ext_suffix != ext:
+            alt_name = name[: -len(ext)] + ext_suffix
+            candidate = base / alt_name
+            if candidate.exists():
+                return str(candidate)
     return None
 
 
@@ -163,6 +169,13 @@ def _find_python_source_for_lib(lib_path, name):
     return _find_python_source(name)
 
 
+def _copy_extension(src_path, dest_dir, module_basename, ext_suffix):
+    dest_dir.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(src_path, dest_dir / f"{module_basename}{ext}")
+    if ext_suffix and ext_suffix != ext:
+        shutil.copyfile(src_path, dest_dir / f"{module_basename}{ext_suffix}")
+
+
 root_dir = Path(__file__).resolve().parent
 repo_root = _resolve_repo_root()
 contrib_src = _ensure_contrib(repo_root, root_dir)
@@ -186,6 +199,7 @@ if platform.system() != "AIX":
     ext = ".pyd" if platform.system() == "Windows" else ".so"
 else:
     ext = ".a"
+ext_suffix = sysconfig.get_config_var("EXT_SUFFIX")
 prefix = "Release/" * (platform.system() == "Windows")
 
 swigfaiss_generic_lib = f"{prefix}_swigfaiss{ext}"
@@ -259,8 +273,8 @@ if found_swigfaiss_generic:
     if not swigfaiss_py:
         raise FileNotFoundError("Could not locate swigfaiss.py after build.")
     shutil.copyfile(swigfaiss_py, root_dir / "faiss" / "swigfaiss.py")
-    shutil.copyfile(
-        swigfaiss_generic_path, root_dir / "faiss" / f"_swigfaiss{ext}"
+    _copy_extension(
+        swigfaiss_generic_path, root_dir / "faiss", "_swigfaiss", ext_suffix
     )
 
 if found_swigfaiss_avx2:
@@ -271,8 +285,8 @@ if found_swigfaiss_avx2:
     if not swigfaiss_avx2_py:
         raise FileNotFoundError("Could not locate swigfaiss_avx2.py after build.")
     shutil.copyfile(swigfaiss_avx2_py, root_dir / "faiss" / "swigfaiss_avx2.py")
-    shutil.copyfile(
-        swigfaiss_avx2_path, root_dir / "faiss" / f"_swigfaiss_avx2{ext}"
+    _copy_extension(
+        swigfaiss_avx2_path, root_dir / "faiss", "_swigfaiss_avx2", ext_suffix
     )
 
 if found_swigfaiss_avx512:
@@ -283,8 +297,8 @@ if found_swigfaiss_avx512:
     if not swigfaiss_avx512_py:
         raise FileNotFoundError("Could not locate swigfaiss_avx512.py after build.")
     shutil.copyfile(swigfaiss_avx512_py, root_dir / "faiss" / "swigfaiss_avx512.py")
-    shutil.copyfile(
-        swigfaiss_avx512_path, root_dir / "faiss" / f"_swigfaiss_avx512{ext}"
+    _copy_extension(
+        swigfaiss_avx512_path, root_dir / "faiss", "_swigfaiss_avx512", ext_suffix
     )
 
 if found_swigfaiss_avx512_spr:
@@ -300,9 +314,11 @@ if found_swigfaiss_avx512_spr:
         swigfaiss_avx512_spr_py,
         root_dir / "faiss" / "swigfaiss_avx512_spr.py",
     )
-    shutil.copyfile(
+    _copy_extension(
         swigfaiss_avx512_spr_path,
-        root_dir / "faiss" / f"_swigfaiss_avx512_spr{ext}",
+        root_dir / "faiss",
+        "_swigfaiss_avx512_spr",
+        ext_suffix,
     )
 
 if found_callbacks:
@@ -320,7 +336,9 @@ if found_swigfaiss_sve:
         swigfaiss_sve_py,
         root_dir / "faiss" / "swigfaiss_sve.py",
     )
-    shutil.copyfile(swigfaiss_sve_path, root_dir / "faiss" / f"_swigfaiss_sve{ext}")
+    _copy_extension(
+        swigfaiss_sve_path, root_dir / "faiss", "_swigfaiss_sve", ext_suffix
+    )
 
 if found_faiss_example_external_module_lib:
     print(f"Copying {faiss_example_external_module_path}")
@@ -335,9 +353,11 @@ if found_faiss_example_external_module_lib:
         example_py,
         root_dir / "faiss" / "faiss_example_external_module.py",
     )
-    shutil.copyfile(
+    _copy_extension(
         faiss_example_external_module_path,
-        root_dir / "faiss" / f"_faiss_example_external_module{ext}",
+        root_dir / "faiss",
+        "_faiss_example_external_module",
+        ext_suffix,
     )
 
 long_description = """
