@@ -11,6 +11,7 @@ import shutil
 import subprocess
 from pathlib import Path
 import sys
+import sysconfig
 
 from setuptools import setup
 
@@ -78,6 +79,20 @@ def _run_cmake_build():
     ]
     cmake_args.append(f"-DPython_EXECUTABLE={sys.executable}")
     cmake_args.append(f"-DPython3_EXECUTABLE={sys.executable}")
+    python_include = sysconfig.get_paths().get("include")
+    if python_include:
+        cmake_args.append(f"-DPython_INCLUDE_DIRS={python_include}")
+        cmake_args.append(f"-DPython3_INCLUDE_DIRS={python_include}")
+    python_libdir = sysconfig.get_config_var("LIBDIR")
+    python_ldlib = sysconfig.get_config_var("LDLIBRARY")
+    if python_libdir and python_ldlib:
+        python_lib = str(Path(python_libdir) / python_ldlib)
+        cmake_args.append(f"-DPython_LIBRARY={python_lib}")
+        cmake_args.append(f"-DPython3_LIBRARY={python_lib}")
+    python_root = sysconfig.get_config_var("prefix") or sys.base_prefix
+    if python_root:
+        cmake_args.append(f"-DPython_ROOT_DIR={python_root}")
+        cmake_args.append(f"-DPython3_ROOT_DIR={python_root}")
     try:
         import numpy
 
