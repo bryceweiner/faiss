@@ -12,7 +12,7 @@
 #include <faiss/impl/AuxIndexStructures.h>
 #include <faiss/impl/DistanceComputer.h>
 #include <faiss/impl/FaissAssert.h>
-#include <faiss/utils/distances.h>
+#include <faiss/utils/distances_dispatch.h>
 
 #include <cstring>
 
@@ -115,6 +115,10 @@ void Index::search_subset(
     FAISS_THROW_MSG("search_subset not implemented for this type of index");
 }
 
+void Index::search1(const float*, ResultHandler&, SearchParameters*) const {
+    FAISS_THROW_MSG("search1 not implemented for this type of index");
+}
+
 void Index::compute_residual(const float* x, float* residual, idx_t key) const {
     reconstruct(key, residual);
     for (size_t i = 0; i < d; i++) {
@@ -165,13 +169,13 @@ struct GenericDistanceComputer : DistanceComputer {
 
     float operator()(idx_t i) override {
         storage.reconstruct(i, buf.data());
-        return fvec_L2sqr(q, buf.data(), d);
+        return fvec_L2sqr_dispatch(q, buf.data(), d);
     }
 
     float symmetric_dis(idx_t i, idx_t j) override {
         storage.reconstruct(i, buf.data());
         storage.reconstruct(j, buf.data() + d);
-        return fvec_L2sqr(buf.data() + d, buf.data(), d);
+        return fvec_L2sqr_dispatch(buf.data() + d, buf.data(), d);
     }
 
     void set_query(const float* x) override {
